@@ -44,7 +44,54 @@ const handleSearchPhotos = async event => {
     Notiflix.Notify.info(`Hooray! We found ${data.totalHits} images.`);
     data.hits.map(el =>
       galleryListEl.insertAdjacentHTML('beforeend', createGalleryCards(el))
-    );
+    );    
+
+    // 22
+    const modalPopEl = document.querySelector('[data-modal]');
+    const closeModalBtn = document.querySelector('[data-modal-close]');  
+    
+
+    function handleShowPop(event) {
+      
+      
+      const popEl = document.querySelector('.photo-card');      
+      const infoPopEl = document.querySelector('.pop-info');
+
+      const popId = event.target.id;
+      console.log(popId);
+      console.log(data.hits);
+
+      let objectId = {};
+      data.hits.map(el => {
+        
+        if (el.id = popId) {
+          objectId = el;
+          return 
+        }
+      }         
+      );
+      console.log(objectId);
+
+      toggleModal();
+         
+      infoPopEl.innerHTML = '';
+      infoPopEl.insertAdjacentHTML(
+        'beforeend',
+        `<img class="photo" src="${objectId.webformatURL}" alt="${objectId.tags}" loading="lazy" />
+         <p>${objectId.tags}</p>
+        `
+      );
+    };
+    galleryListEl.addEventListener('click', handleShowPop); //виклик модал
+    closeModalBtn.addEventListener('click', closeModal);
+
+    function toggleModal() {
+      modalPopEl.classList.toggle('is-hidden');
+    };
+    function closeModal() {
+      modalPopEl.classList.add('is-hidden');
+    };
+    // 22
 
     const numberOfPages = data.totalHits / unsplashAPI.per_page;
     console.log(unsplashAPI.page);
@@ -90,3 +137,5 @@ searchFormEl.addEventListener('submit', handleSearchPhotos);
 loadMoreBtnEl.addEventListener('click', handleLoadMoreBtnClick);
 
 let gallery = new SimpleLightbox('.gallery a');
+
+
