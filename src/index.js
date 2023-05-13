@@ -20,7 +20,7 @@ const unsplashAPI = new UnsplashAPI();
 const unsuccessfulSearch = () => {
   loadMoreBtnEl.classList.add('is-hidden');
   galleryListEl.innerHTML = '';
-  Notiflix.Report.failure(
+  Notiflix.Notify.info(
     'Sorry, there are no images matching your search query. Please try again.'
   );
 };
@@ -88,5 +88,3 @@ const handleLoadMoreBtnClick = async () => {
 };
 searchFormEl.addEventListener('submit', handleSearchPhotos);
 loadMoreBtnEl.addEventListener('click', handleLoadMoreBtnClick);
-
-let gallery = new SimpleLightbox('.gallery a');
